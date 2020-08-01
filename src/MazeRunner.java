@@ -1,14 +1,15 @@
 import java.util.*;
 
-//Start from part 2; making a counter.
+//Start from part 3; making a jump method.
 public class MazeRunner {
     static Maze myMap = new Maze();
 
     public static void main(String[] args){
 
         intro();
-        String movement = userMove();
+        int movement = userMove();
         System.out.println(movement);
+
 
     }
 
@@ -18,8 +19,9 @@ public class MazeRunner {
 
     }
 
-    public static String userMove(){
+    public static int userMove(){
         String direction = "";
+        int moves = 0;
         System.out.println("Where would you like to move? (R, L, U, D)");
         while (myMap.didIWin() != true) {
             while (!direction.equals("R") && !direction.equals("L") && !direction.equals("U") && !direction.equals("D")) {
@@ -43,12 +45,35 @@ public class MazeRunner {
             } else {
                 System.out.println("Sorry, you’ve hit a wall.");
             }
-
+            moves = moves + 1;
             myMap.printMap();
-            System.out.println("Where would you like to move next: R  L  U  D");
             direction = "";
+            System.out.println("You've made " + moves + " move(s)");
+            movesMessege(moves);
+            System.out.println("Where would you like to move next: R  L  U  D");
         }
-        System.out.println("Congratulations! You've made it out alive!");
-            return direction;
+        System.out.println("Congratulations! You've made it out alive!\nAnd you did it in " + moves + " moves");
+        return moves;
+    }
+
+    public static void movesMessege(int movess){
+
+        if (movess > 0 && movess <100){
+            if (movess == 50){
+            System.out.println("Warning: You have made 50 moves, you have 50 remaining before the maze exit closes");
+                 }
+            if (movess == 75){
+            System.out.println("Alert! You have made 75 moves, you only have 25 moves left to escape.");
+                }
+             if (movess == 90){
+            System.out.println("DANGER! You have made 90 moves, you only have 10 moves left to escape!!");
+                }
+        }
+
+        else {
+            System.out.println("Oh no! You took too long to escape, and now the maze exit is closed FOREVER >:[ \nSorry, but you didn't escape in time- you lose!");
+            System.exit(0);
+        }
+
     }
 }
