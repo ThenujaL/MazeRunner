@@ -33,17 +33,31 @@ public class MazeRunner {
                     System.out.println("Please only enter one of these values: R, L, U, D");
                     direction = "";
                 }
+
             }
-            if (direction.equals("R") && myMap.canIMoveRight()) {
-                myMap.moveRight();
-            } else if (direction.equals("L") && myMap.canIMoveLeft()) {
-                myMap.moveLeft();
-            } else if (direction.equals("U") && myMap.canIMoveUp()) {
-                myMap.moveUp();
-            } else if (direction.equals("D") && myMap.canIMoveDown()) {
-                myMap.moveDown();
-            } else {
-                System.out.println("Sorry, you’ve hit a wall.");
+            if (myMap.isThereAPit(direction))
+            {
+                Scanner input = new Scanner(System.in);
+                System.out.println("Watch out! There's a pit ahead, jump it?");
+                String ShouldiMove = input.next();
+
+                    if (ShouldiMove.startsWith("y") || ShouldiMove.startsWith("Y")){
+                        myMap.jumpOverPit(direction);
+                    }
+            }
+
+            else {
+                if (direction.equals("R") && myMap.canIMoveRight()) {
+                    myMap.moveRight();
+                } else if (direction.equals("L") && myMap.canIMoveLeft()) {
+                    myMap.moveLeft();
+                } else if (direction.equals("U") && myMap.canIMoveUp()) {
+                    myMap.moveUp();
+                } else if (direction.equals("D") && myMap.canIMoveDown()) {
+                    myMap.moveDown();
+                } else {
+                    System.out.println("Sorry, you’ve hit a wall.");
+                }
             }
             moves = moves + 1;
             myMap.printMap();
@@ -55,6 +69,7 @@ public class MazeRunner {
         System.out.println("Congratulations! You've made it out alive!\nAnd you did it in " + moves + " moves");
         return moves;
     }
+
 
     public static void movesMessege(int movess){
 
